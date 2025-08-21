@@ -1,8 +1,4 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.StringJoiner;
+import java.util.*;
 
 public class WordFrequencyGame {
 
@@ -38,7 +34,7 @@ public class WordFrequencyGame {
     }
 
     private static void sortByCountDesc(List<Input> inputList) {
-        inputList.sort((wordPre, wordCurr) -> wordCurr.getWordCount() - wordPre.getWordCount());
+        inputList.sort(Comparator.comparingInt(Input::getWordCount).reversed());
     }
 
     private static String formatWordFrequency(List<Input> inputList) {
