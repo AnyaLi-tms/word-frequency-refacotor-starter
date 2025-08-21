@@ -8,6 +8,10 @@ public class WordFrequencyGame {
 
     public static final String SPACE_ONE = " 1";
     public static final String CALCULATE_ERROR = "Calculate Error";
+    public static final int WORD_COUNT = 1;
+    public static final String SPACE = " ";
+    public static final String LINE_BREAK = "\n";
+    public static final String REGEX = "\\s+";
 
     public String getResult(String inputStr) {
 
@@ -27,7 +31,7 @@ public class WordFrequencyGame {
     private String getString(String[] arr) {
         List<Input> inputList = new ArrayList<>();
         for (String s : arr) {
-            Input input = new Input(s, 1);
+            Input input = new Input(s, WORD_COUNT);
             inputList.add(input);
         }
 
@@ -43,16 +47,16 @@ public class WordFrequencyGame {
 
         inputList.sort((w1, w2) -> w2.getWordCount() - w1.getWordCount());
 
-        StringJoiner joiner = new StringJoiner("\n");
+        StringJoiner joiner = new StringJoiner(LINE_BREAK);
         for (Input w : inputList) {
-            String s = w.getValue() + " " + w.getWordCount();
+            String s = w.getValue() + SPACE + w.getWordCount();
             joiner.add(s);
         }
         return joiner.toString();
     }
 
     private String[] getSplit(String inputStr) {
-        return inputStr.split("\\s+");
+        return inputStr.split(REGEX);
     }
 
     private Map<String, List<Input>> getListMap(List<Input> inputList) {
