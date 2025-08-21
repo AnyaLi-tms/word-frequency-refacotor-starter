@@ -32,9 +32,13 @@ public class WordFrequencyGame {
 
         //get the map for the next step of sizing the same word
         inputList = groupAndCountInputs(inputList);
-        inputList.sort((wordPre, wordCurr) -> wordCurr.getWordCount() - wordPre.getWordCount());
+        sortByCountDesc(inputList);
 
         return formatWordFrequency(inputList);
+    }
+
+    private static void sortByCountDesc(List<Input> inputList) {
+        inputList.sort((wordPre, wordCurr) -> wordCurr.getWordCount() - wordPre.getWordCount());
     }
 
     private static String formatWordFrequency(List<Input> inputList) {
