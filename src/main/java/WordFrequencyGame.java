@@ -58,12 +58,9 @@ public class WordFrequencyGame {
     }
 
     private static List<Input> convertToInputList(String[] arr) {
-        List<Input> inputList = new ArrayList<>();
-        for (String s : arr) {
-            Input input = new Input(s, WORD_COUNT);
-            inputList.add(input);
-        }
-        return inputList;
+        return Arrays.stream(arr)
+                .map(s -> new Input(s, WORD_COUNT))
+                .toList();
     }
 
     private String[] splitByWhitespace(String inputStr) {
