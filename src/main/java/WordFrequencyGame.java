@@ -7,6 +7,7 @@ import java.util.StringJoiner;
 public class WordFrequencyGame {
 
     public static final String SPACE_ONE = " 1";
+    public static final String CALCULATE_ERROR = "Calculate Error";
 
     public String getResult(String inputStr) {
 
@@ -18,7 +19,7 @@ public class WordFrequencyGame {
                 String[] arr = getSplit(inputStr);
                 return getString(arr);
             } catch (Exception e) {
-                return "Calculate Error";
+                return CALCULATE_ERROR;
             }
         }
     }
