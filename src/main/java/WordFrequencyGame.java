@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class WordFrequencyGame {
 
@@ -49,12 +50,9 @@ public class WordFrequencyGame {
     private List<Input> groupAndCountInputs(List<Input> inputList) {
         Map<String, List<Input>> inputsByValue = groupInputsByValue(inputList);
 
-        List<Input> groupedInputs = new ArrayList<>();
-        for (Map.Entry<String, List<Input>> entry : inputsByValue.entrySet()) {
-            Input input = new Input(entry.getKey(), entry.getValue().size());
-            groupedInputs.add(input);
-        }
-        return groupedInputs;
+        return inputsByValue.entrySet().stream()
+                .map(entry -> new Input(entry.getKey(), entry.getValue().size()))
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 
     private static List<Input> convertToInputList(String[] arr) {
