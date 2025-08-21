@@ -14,30 +14,30 @@ public class WordFrequencyGame {
     public static final String REGEX = "\\s+";
 
     public String getResult(String inputStr) {
-        if (getSplit(inputStr).length == 1) {
+        if (splitByWhitespace(inputStr).length == 1) {
             return inputStr + SPACE_ONE;
         } else {
             try {
                 //split the input string with 1 to n pieces of spaces
-                String[] arr = getSplit(inputStr);
-                return getString(arr);
+                String[] arr = splitByWhitespace(inputStr);
+                return sortAndFormatWords(arr);
             } catch (Exception e) {
                 return CALCULATE_ERROR;
             }
         }
     }
 
-    private String getString(String[] arr) {
-        List<Input> inputList = getInputList(arr);
+    private String sortAndFormatWords(String[] arr) {
+        List<Input> inputList = convertToInputList(arr);
 
         //get the map for the next step of sizing the same word
-        inputList = getList(inputList);
+        inputList = groupAndCountInputs(inputList);
         inputList.sort((wordPre, wordCurr) -> wordCurr.getWordCount() - wordPre.getWordCount());
 
-        return getJoinerString(inputList);
+        return formatWordFrequency(inputList);
     }
 
-    private static String getJoinerString(List<Input> inputList) {
+    private static String formatWordFrequency(List<Input> inputList) {
         StringJoiner joiner = new StringJoiner(LINE_BREAK);
         for (Input w : inputList) {
             String s = w.getValue() + SPACE + w.getWordCount();
@@ -46,8 +46,8 @@ public class WordFrequencyGame {
         return joiner.toString();
     }
 
-    private List<Input> getList(List<Input> inputList) {
-        Map<String, List<Input>> map = getListMap(inputList);
+    private List<Input> groupAndCountInputs(List<Input> inputList) {
+        Map<String, List<Input>> map = groupInputsByValue(inputList);
 
         List<Input> list = new ArrayList<>();
         for (Map.Entry<String, List<Input>> entry : map.entrySet()) {
@@ -57,7 +57,7 @@ public class WordFrequencyGame {
         return list;
     }
 
-    private static List<Input> getInputList(String[] arr) {
+    private static List<Input> convertToInputList(String[] arr) {
         List<Input> inputList = new ArrayList<>();
         for (String s : arr) {
             Input input = new Input(s, WORD_COUNT);
@@ -66,11 +66,11 @@ public class WordFrequencyGame {
         return inputList;
     }
 
-    private String[] getSplit(String inputStr) {
+    private String[] splitByWhitespace(String inputStr) {
         return inputStr.split(REGEX);
     }
 
-    private Map<String, List<Input>> getListMap(List<Input> inputList) {
+    private Map<String, List<Input>> groupInputsByValue(List<Input> inputList) {
         Map<String, List<Input>> map = new HashMap<>();
         for (Input input : inputList) {
 //       map.computeIfAbsent(input.getValue(), k -> new ArrayList<>()).add(input);
