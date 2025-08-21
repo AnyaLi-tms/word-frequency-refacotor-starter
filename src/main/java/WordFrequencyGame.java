@@ -32,9 +32,12 @@ public class WordFrequencyGame {
 
         //get the map for the next step of sizing the same word
         inputList = getList(inputList);
+        inputList.sort((wordPre, wordCurr) -> wordCurr.getWordCount() - wordPre.getWordCount());
 
-        inputList.sort((w1, w2) -> w2.getWordCount() - w1.getWordCount());
+        return getJoinerString(inputList);
+    }
 
+    private static String getJoinerString(List<Input> inputList) {
         StringJoiner joiner = new StringJoiner(LINE_BREAK);
         for (Input w : inputList) {
             String s = w.getValue() + SPACE + w.getWordCount();
